@@ -20,7 +20,7 @@ export class AddressFormComponent implements OnInit {
     zipcode: ''
   };
 
-  constructor(private formBuilder: FormBuilder ) {}
+  constructor(private formBuilder: FormBuilder, private httpService: HttpService ) {}
 
   ngOnInit(){
     this.contactForm = this.formBuilder.group({
@@ -67,6 +67,7 @@ export class AddressFormComponent implements OnInit {
   save(){
     this.setContactData();
     alert(JSON.stringify(this.contactObj));
+    this.saveContact();
   }
 
   setContactData() {
@@ -76,6 +77,13 @@ export class AddressFormComponent implements OnInit {
     this.contactObj.city = this.contactForm.value.city;
     this.contactObj.state = this.contactForm.value.state;
     this.contactObj.zipcode = this.contactForm.value.zipcode;
+  }
+
+  saveContact() {
+    this.httpService.saveContact(this.contactObj)
+                      .subscribe((response: any) => { 
+                        console.log(response.data);
+                      });
   }
 
 }
