@@ -1,19 +1,19 @@
 <app-header></app-header>
 <div id="formId" class="form-content">
-    <form class="form" action="#" [formGroup]="contact" onreset="resetForm()" (ngSubmit)="save()">
+    <form class="form" action="#" [formGroup]="contactForm" onreset="resetForm()" (ngSubmit)="save()">
         <div class="form-header">
             <div class="form-header-text">Person Address Form</div>
-            <a class="cancel-button" href="./home.html" ><img src="../assets/images/cancel.jpeg" alt="logo"></a>
+            <a class="cancel-button" href="#" ><img src="../assets/images/cancel.jpeg" alt="logo"></a>
         </div>
         <div class="form-body">
             <span class="text-error">{{ this.errorText }}</span>
             <div class="row-content">
                 <label class="label text" for="full-name">Full Name</label>
-                <div><input formControlName="fullName" (input)="onNameChange()" class="input" type="text" id="full-name" name="full-name" required></div>
+                <div><input formControlName="fullName" (input)="onNameChange()" class="input" type="text" id="fullName" name="fullName" required></div>
             </div>
             <div class="row-content">
                 <label class="label text" for="notes">Phone Number</label>
-                <input formControlName="phoneNumber" (input)="onPhoneNumberChange()"  class="input" type="text" id="phone-number" name="phone-number" required>
+                <input formControlName="phoneNumber" (input)="onPhoneNumberChange()"  class="input" type="text" id="phone-number" name="phoneNumber" required>
             </div>            
             <div class="row-content">
                 <label class="label text" for="notes">Address</label>

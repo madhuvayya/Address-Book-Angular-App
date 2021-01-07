@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { HttpService } from '../../services/http.service'
 
 @Component({
   selector: 'app-address-form',
@@ -9,27 +10,32 @@ import { FormGroup, FormControl } from '@angular/forms'
 export class AddressFormComponent implements OnInit {
   contact: FormGroup;
   errorText: string;
+  contactForm: any;
+  contactObj = {    
+    fullName: '',
+    phoneNumber: '',
+    address: '',
+    city: '',
+    state: '',
+    zipcode: ''
+  };
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder ) {}
 
   ngOnInit(){
-    this.contact = new FormGroup({
-      fullName: new FormControl(),
-      phoneNumber: new FormControl(),
-      address: new FormControl(),
-      city: new FormControl(),
-      state: new FormControl(),
-      zipcode: new FormControl()
-    })
-  }
-
-  save(): void{
-    console.log(this.contact.value);
+    this.contactForm = this.formBuilder.group({
+      fullName: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipcode: ['', Validators.required]
+    });
   }
 
   onNameChange() {
     let nameRegex = RegExp('^[A-Z]{1}[a-zA-Z\\s]{2,}$');
-    if (nameRegex.test(this.contact.value.fullName))
+    if (nameRegex.test(this.contactForm.value.fullName))
         this.errorText = "";
     else
         this.errorText = 'Name is incorrect!';
@@ -37,7 +43,7 @@ export class AddressFormComponent implements OnInit {
 
   onPhoneNumberChange() {
     const phoneNumberRegex = RegExp('^([+])?(91)?[6-9]{1}[0-9]{9}$');
-    if (phoneNumberRegex.test(this.contact.value.phoneNumber))
+    if (phoneNumberRegex.test(this.contactForm.value.phoneNumber))
         this.errorText = '';
     else
         this.errorText = 'Entered invalid phone number.'
@@ -45,7 +51,7 @@ export class AddressFormComponent implements OnInit {
 
   onAddressChange(){
     const addressRegex = RegExp('^.{3,}$');
-    var addressArray = this.contact.value.address.split(",");
+    var addressArray = this.contactForm.value.address.split(",");
     let validWords = 0;
     addressArray.forEach( word => {
         if(addressRegex.test(word)){
@@ -56,6 +62,20 @@ export class AddressFormComponent implements OnInit {
         this.errorText = "";
     else
         this.errorText = 'Enter proper address!';  
+  }
+
+  save(){
+    this.setContactData();
+    alert(JSON.stringify(this.contactObj));
+  }
+
+  setContactData() {
+    this.contactObj.fullName = this.contactForm.value.fullName;
+    this.contactObj.phoneNumber = this.contactForm.value.phoneNumber;
+    this.contactObj.address = this.contactForm.value.address;
+    this.contactObj.city = this.contactForm.value.city;
+    this.contactObj.state = this.contactForm.value.state;
+    this.contactObj.zipcode = this.contactForm.value.zipcode;
   }
 
 }
