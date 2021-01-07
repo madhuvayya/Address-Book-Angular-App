@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div id="formId" class="form-content">
-    <form class="form" action="#" [formGroup]="contact" onreset="resetForm()" (ngSubmit)="save($event)">
+    <form class="form" action="#" [formGroup]="contact" onreset="resetForm()" (ngSubmit)="save()">
         <div class="form-header">
             <div class="form-header-text">Person Address Form</div>
             <a class="cancel-button" href="./home.html" ><img src="../assets/images/cancel.jpeg" alt="logo"></a>
@@ -9,15 +9,15 @@
             <span class="text-error">{{ this.errorText }}</span>
             <div class="row-content">
                 <label class="label text" for="full-name">Full Name</label>
-                <div><input formControlName="fullName" class="input" type="text" id="full-name" name="full-name" required></div>
+                <div><input formControlName="fullName" (input)="onNameChange()" class="input" type="text" id="full-name" name="full-name" required></div>
             </div>
             <div class="row-content">
                 <label class="label text" for="notes">Phone Number</label>
-                <input formControlName="phoneNumber"  class="input" type="text" id="phone-number" name="phone-number" required>
+                <input formControlName="phoneNumber" (input)="onPhoneNumberChange()"  class="input" type="text" id="phone-number" name="phone-number" required>
             </div>            
             <div class="row-content">
                 <label class="label text" for="notes">Address</label>
-                <textarea formControlName="address" class="input" id="address" name="address" style="height: 80px;" required></textarea> 
+                <textarea formControlName="address" (input)="onAddressChange()" class="input" id="address" name="address" style="height: 80px;" required></textarea> 
             </div>
             <div class="city-state-zipcode">
                 <div>
