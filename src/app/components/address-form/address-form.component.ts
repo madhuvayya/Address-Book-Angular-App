@@ -23,6 +23,10 @@ export class AddressFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private httpService: HttpService ) {}
 
   ngOnInit(){
+    this.resetForm();
+  }
+
+  resetForm() {
     this.contactForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
@@ -68,6 +72,7 @@ export class AddressFormComponent implements OnInit {
     this.setContactData();
     alert(JSON.stringify(this.contactObj));
     this.saveContact();
+    this.resetForm();
   }
 
   setContactData() {
@@ -85,5 +90,4 @@ export class AddressFormComponent implements OnInit {
                         console.log(response.data);
                       });
   }
-
 }
