@@ -9,7 +9,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  saveContact(contact) {
+  saveContact(contact: any) {
     const postURL = 'http://localhost:8080/addressbook/create' 
     return this.httpClient.post(postURL, contact);
   }
@@ -22,5 +22,15 @@ export class HttpService {
   deleteContactData(id: number) {
     const deleteURL = 'http://localhost:8080/addressbook/delete/' + id; 
     return this.httpClient.delete(deleteURL);
+  }
+
+  getEmployeePayrollDataById(id: any) {
+    const getURL = 'http://localhost:8080/addressbook/get/' + id; 
+    return this.httpClient.get(getURL);
+  }
+
+  updateContact(id: any, contactData) {
+    const putURL = 'http://localhost:8080/addressbook/update/' + id; 
+    return this.httpClient.put(putURL, contactData);
   }
 }

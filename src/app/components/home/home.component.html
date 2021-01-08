@@ -29,7 +29,7 @@
             <td>{{contact.phoneNumber}}</td>
             <td>
                 <img id="{{contact.contactId}}" (click)="deleteContact($event)" alt="delete" src="../assets/icons/delete-black-18dp.svg">
-                <img id="{{contact.contactId}}" alt="edit" src="../assets/icons/create-black-18dp.svg">                    
+                <img id="{{contact.contactId}}" routerLink="/address-form/{{contact.contactId}}" alt="edit" src="../assets/icons/create-black-18dp.svg">                    
             </td>
         </tr>    
 </table>

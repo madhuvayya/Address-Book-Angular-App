@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
-
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./address-form.component.scss']
 })
 export class AddressFormComponent implements OnInit {
-  contact: FormGroup;
+  id: any;
   errorText: string;
   contactForm: any;
   contactObj = {    
@@ -24,11 +24,35 @@ export class AddressFormComponent implements OnInit {
 
   constructor(  private formBuilder: FormBuilder, 
                 private httpService: HttpService, 
-                private router: Router
+                private router: ActivatedRoute,
+                private navRouter: Router
               ) {}
 
   ngOnInit(){
+    this.checkForUpdate(); 
     this.resetForm();
+  }
+
+  checkForUpdate() {
+    this.id  = this.router.snapshot.params.id;
+    if(this.id === null || this.id === undefined){
+        return;
+    }
+    this.httpService.getEmployeePayrollDataById(this.id)
+                          .subscribe((response: any) =>{
+                              this.setForm(response.data);
+                          });
+  }
+
+  setForm(contact: any) {
+    this.contactForm = this.formBuilder.group({
+      fullName: contact.fullName,
+      phoneNumber: contact.phoneNumber,
+      address: contact.address,
+      city: contact.city,
+      state: contact.state,
+      zipcode: contact.zipcode
+    });
   }
 
   resetForm() {
@@ -62,7 +86,7 @@ export class AddressFormComponent implements OnInit {
     const addressRegex = RegExp('^.{3,}$');
     var addressArray = this.contactForm.value.address.split(",");
     let validWords = 0;
-    addressArray.forEach( word => {
+    addressArray.forEach( (word: string) => {
         if(addressRegex.test(word)){
             validWords++;
         }
@@ -76,7 +100,7 @@ export class AddressFormComponent implements OnInit {
   save(){
     this.setContactData();
     alert(JSON.stringify(this.contactObj));
-    this.saveContact();
+    this.saveOrUpdateContact();
     this.resetForm();
   }
 
@@ -89,10 +113,18 @@ export class AddressFormComponent implements OnInit {
     this.contactObj.zipcode = this.contactForm.value.zipcode;
   }
 
-  saveContact() {
-    this.httpService.saveContact(this.contactObj)
-                      .subscribe((response: any) => { 
-                        console.log(response.data);
-                      });
+  saveOrUpdateContact() {
+    if(this.id === null || this.id === undefined){
+      this.httpService.saveContact(this.contactObj)
+                          .subscribe((response: any) => { 
+                              console.log(response.data);
+                          });
+    } else {
+      this.httpService.updateContact(this.id, this.contactObj)
+                          .subscribe((response: any) => { 
+                              console.log(response.data);
+                          });
+    }
+    this.navRouter.navigate(['/home']);       
   }
 }
