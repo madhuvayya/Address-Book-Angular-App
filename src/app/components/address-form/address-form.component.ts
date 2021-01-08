@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { HttpService } from '../../services/http.service'
+import { HttpService } from '../../services/http.service';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-address-form',
@@ -20,7 +22,10 @@ export class AddressFormComponent implements OnInit {
     zipcode: ''
   };
 
-  constructor(private formBuilder: FormBuilder, private httpService: HttpService ) {}
+  constructor(  private formBuilder: FormBuilder, 
+                private httpService: HttpService, 
+                private router: Router
+              ) {}
 
   ngOnInit(){
     this.resetForm();

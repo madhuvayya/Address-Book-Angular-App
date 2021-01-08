@@ -3,7 +3,7 @@
     <form class="form" action="#" [formGroup]="contactForm" onreset="resetForm()" (ngSubmit)="save()">
         <div class="form-header">
             <div class="form-header-text">Person Address Form</div>
-            <a class="cancel-button" href="#" ><img src="../assets/images/cancel.jpeg" alt="logo"></a>
+            <a class="cancel-button" routerLink="/home" ><img src="../assets/images/cancel.jpeg" alt="logo"></a>
         </div>
         <div class="form-body">
             <span class="text-error">{{ this.errorText }}</span>
