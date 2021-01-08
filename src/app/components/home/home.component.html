@@ -2,7 +2,7 @@
     <div class="header-content">
         <div class="contacts-detail-text">
             Persons Details
-            <div class="contacts-count">10</div>
+            <div class="contacts-count">{{ this.contactsCount }}</div>
         </div>
         <a routerLink="/address-form" class="add-button">
             <img src="../../../assets/icons/add-24px.svg" alt="">
@@ -20,16 +20,16 @@
             <th>Zipcode</th>
             <th></th>
         </tr>
-        <tr>
-            <td>Rajesh P</td>
-            <td>Srinagar</td>
-            <td>Hyderabad</td>
-            <td>Telangana</td>
-            <td>55555555</td>
-            <td>7777777777</td>
+        <tr *ngFor="let contact of contactsList">
+            <td>{{contact.fullName}}</td>
+            <td>{{contact.address}}</td>
+            <td>{{contact.city}}</td>
+            <td>{{contact.state}}</td>
+            <td>{{contact.zipcode}}</td>
+            <td>{{contact.phoneNumber}}</td>
             <td>
-                <img alt="delete" src="../assets/icons/delete-black-18dp.svg">
-                <img alt="edit" src="../assets/icons/create-black-18dp.svg">                    
+                <img id="{{contact.id}}" alt="delete" src="../assets/icons/delete-black-18dp.svg">
+                <img id="{{contact.id}}" alt="edit" src="../assets/icons/create-black-18dp.svg">                    
             </td>
         </tr>    
 </table>
