@@ -18,4 +18,9 @@ export class HttpService {
     const getURL = 'http://localhost:8080/addressbook/' 
     return this.httpClient.get(getURL);
   }
+
+  deleteContactData(id: number) {
+    const deleteURL = 'http://localhost:8080/addressbook/delete/' + id; 
+    return this.httpClient.delete(deleteURL);
+  }
 }

@@ -29,4 +29,13 @@ export class HomeComponent implements OnInit {
         this.contactsCount = this.contactsList.length; 
   }
 
+  deleteContact($event){
+    let id = $event.target.id;
+    this.httpService.deleteContactData(id)
+                    .subscribe((response: any) =>{
+                        console.log(response.message);
+                        this.setContactsCount();  
+                    });
+    window.location.reload();                
+  }
 }
