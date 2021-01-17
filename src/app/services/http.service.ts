@@ -7,30 +7,32 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
+  private baseURL:string = 'http://localhost:8080/addressbook';
+
   constructor(private httpClient: HttpClient) { }
 
   saveContact(contact: any) {
-    const postURL = 'http://localhost:8080/addressbook/create' 
+    const postURL = this.baseURL + '/create' 
     return this.httpClient.post(postURL, contact);
   }
 
   getData(): Observable<any> {
-    const getURL = 'http://localhost:8080/addressbook/' 
+    const getURL = this.baseURL; 
     return this.httpClient.get(getURL);
   }
 
   deleteContactData(id: number) {
-    const deleteURL = 'http://localhost:8080/addressbook/delete/' + id; 
+    const deleteURL = this.baseURL + '/delete/' + id; 
     return this.httpClient.delete(deleteURL);
   }
 
   getEmployeePayrollDataById(id: any) {
-    const getURL = 'http://localhost:8080/addressbook/get/' + id; 
+    const getURL = this.baseURL + '/get/' + id; 
     return this.httpClient.get(getURL);
   }
 
   updateContact(id: any, contactData) {
-    const putURL = 'http://localhost:8080/addressbook/update/' + id; 
+    const putURL = this.baseURL + '/update/' + id; 
     return this.httpClient.put(putURL, contactData);
   }
 }
