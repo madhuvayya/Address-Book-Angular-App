@@ -26,11 +26,11 @@ export class AddressFormComponent implements OnInit {
                 private httpService: HttpService, 
                 private router: ActivatedRoute,
                 private navRouter: Router
-              ) {}
+              ) { }
 
   ngOnInit(){
-    this.checkForUpdate(); 
     this.resetForm();
+    this.checkForUpdate();
   }
 
   checkForUpdate() {
@@ -57,8 +57,8 @@ export class AddressFormComponent implements OnInit {
 
   resetForm() {
     this.contactForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      fullName: ['',Validators.compose([ Validators.required,Validators.pattern( '^[A-Z]{1}[a-zA-Z\\s]{2,}$' ) ]) ],
+      phoneNumber: ['', Validators.compose([ Validators.required,Validators.pattern( /^([+])?(91)?[6-9]{1}[0-9]{9}$/ ) ]) ],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
@@ -99,9 +99,27 @@ export class AddressFormComponent implements OnInit {
 
   save(){
     this.setContactData();
-    alert(JSON.stringify(this.contactObj));
-    this.saveOrUpdateContact();
-    this.resetForm();
+    if (this.validateFormInputs()) {
+      alert(JSON.stringify(this.contactObj));
+      this.saveOrUpdateContact();
+      this.resetForm();
+    }
+    return;
+  }
+
+  validateFormInputs(): boolean {
+    if( this.contactForm.controls['fullName'].valid &&
+        this.contactForm.controls['phoneNumber'].valid &&
+        this.contactForm.controls['address'].valid &&
+        this.contactForm.controls['city'].valid &&
+        this.contactForm.controls['state'].valid &&
+        this.contactForm.controls['zipcode'].valid) {
+    return true 
+    } else {
+      // this.contactForm.markAllAsTouched();
+      console.log("Form validation is false");
+      return false;
+    }
   }
 
   setContactData() {
@@ -124,7 +142,6 @@ export class AddressFormComponent implements OnInit {
                           .subscribe((response: any) => { 
                               console.log(response.data);
                           });
-    }
-    this.navRouter.navigate(['/home']);       
+    }     
   }
 }

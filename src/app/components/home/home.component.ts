@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   contactsList = [];
   contactsCount: number;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getAddressBookDataFromServer();
@@ -22,11 +22,11 @@ export class HomeComponent implements OnInit {
                     .subscribe((response) =>{  
                           this.contactsList  = response.data;
                           this.setContactsCount();
-                    });
+                    });               
   }
 
   setContactsCount() {
-        this.contactsCount = this.contactsList.length; 
+    this.contactsCount = this.contactsList.length; 
   }
 
   deleteContact($event){

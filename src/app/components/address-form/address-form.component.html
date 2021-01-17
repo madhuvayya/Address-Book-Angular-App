@@ -8,15 +8,15 @@
             <span class="text-error">{{ this.errorText }}</span>
             <div class="row-content">
                 <label class="label text" for="fullName">Full Name</label>
-                <div><input formControlName="fullName" (input)="onNameChange()" class="input" type="text" id="fullName" name="fullName" required></div>
+                <div><input formControlName="fullName" autocomplete="off" (input)="onNameChange()" class="input" type="text" id="fullName" name="fullName" required></div>
             </div>
             <div class="row-content">
                 <label class="label text" for="phoneNumber">Phone Number</label>
-                <input formControlName="phoneNumber" (input)="onPhoneNumberChange()"  class="input" type="text" id="phone-number" name="phoneNumber" required>
+                <input formControlName="phoneNumber" autocomplete="off" (input)="onPhoneNumberChange()"  class="input" type="text" id="phone-number" name="phoneNumber" required>
             </div>            
             <div class="row-content">
                 <label class="label text" for="address">Address</label>
-                <textarea formControlName="address" (input)="onAddressChange()" class="input" id="address" name="address" style="height: 80px;" required></textarea> 
+                <textarea formControlName="address" autocomplete="off" (input)="onAddressChange()" class="input" id="address" name="address" style="height: 80px;" required></textarea> 
             </div>
             <div class="city-state-zipcode">
                 <div>
@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <label class="label text" for="zipcode">Zipcode</label>
-                    <input formControlName="zipcode" class="zipcode" id="zipcode" name="zipcode" required>
+                    <input formControlName="zipcode" autocomplete="off" class="zipcode" id="zipcode" name="zipcode" required>
                 </div>
             </div>
             <div class="buttonParent">
